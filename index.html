@@ -1,22 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Bestie</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #ffe4e1; font-family: sans-serif; text-align: center; overflow: hidden; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 15px 35px rgba(255,105,180,0.3); width: 85%; max-width: 350px; border: 2px solid #ffb6c1; }
+        img { width: 180px; border-radius: 20px; margin-bottom: 20px; }
+        h1 { color: #ff4d6d; font-size: 22px; margin-bottom: 20px; height: 60px; }
+        .btn-container { height: 120px; position: relative; width: 100%; margin-top: 20px; }
+        button { padding: 15px 30px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 16px; position: absolute; transition: 0.1s; }
+        #yesBtn { background-color: #ff4d6d; color: white; left: 10%; }
+        #noBtn { background-color: #f0f0f0; color: #555; right: 10%; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div id="main-card">
-            <img id="display-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Cat">
-            <h1 id="question">Will you be my best friend forever? 🥺</h1>
-            <div class="buttons">
-                <button id="yes-btn">Yes!</button>
-                <button id="no-btn">No</button>
-            </div>
+    <div class="card">
+        <img id="catGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXp4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZweW5sJnB0PTEmY3Q9cw/cLS1zl2KqjaOdx4m9Z/giphy.gif">
+        <h1 id="msg">Do you even miss me? 🥺</h1>
+        <div class="btn-container">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const msg = document.getElementById('msg');
+        const catGif = document.getElementById('catGif');
+        let i = 0; let phase = 1;
+        const pLines = ["Liar! 😒", "You don't care?", "I'm crying... 😭"];
+        const bLines = ["NEVER alone! 😤", "It's always us!", "Stuck with me! ❤️"];
+
+        function move(btn) {
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+        }
+
+        yesBtn.addEventListener('mouseover', () => {
+            move(yesBtn);
+            if(phase === 1 && i < pLines.length) { msg.innerText = pLines[i]; i++; }
+            else if(phase === 2 && i < bLines.length) { msg.innerText = bLines[i]; i++; }
+        });
+
+        noBtn.addEventListener('click', () => {
+            if(phase === 1) {
+                phase = 2; i = 0;
+                msg.innerText = "Nandu, celebrate alone or with me? 🎂";
+                catGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXp4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZweW5sJnB0PTEmY3Q9cw/v6aOebdZ8U6D7YpL2k/giphy.gif";
+                yesBtn.innerText = "Alone 🚶‍♀️"; noBtn.innerText = "With You! ❤️";
+                yesBtn.style.position = 'absolute'; yesBtn.style.left = '10%'; yesBtn.style.top = '0';
+            } else { alert('HAPPY BIRTHDAY! 🎉 Always with you, Buddhu!'); }
+        });
+    </script>
 </body>
 </html>
+
